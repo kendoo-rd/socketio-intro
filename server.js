@@ -18,15 +18,12 @@ const io = socketio(httpServer);
 
 io.on('connection', socket => {
 
-    socket.on('newMessage', dataFromClient => {
+    socket.on('messageFromClient', message => {
 
-        console.log( 'A new message from client: ' + dataFromClient)
-
+        //  io.emit('messageFromServer', message );     //  Send to everyone
+        socket.broadcast.emit('messageFromServer', message);
         
     })
 
-    setTimeout( ()=>{
-        io.emit('messageFromServer', 'Hi from Server');
-    }, 3000 )
 
 })

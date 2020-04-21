@@ -42,8 +42,7 @@
     </style>
 </head>
 <body>
-    <h1>Socket.IO Hello</h1>
-
+    <h1>Socket.IO Chat App</h1>
 
     <div id="chatBoard">
         
@@ -64,12 +63,25 @@
 
         function sendMessage() {
 
-            socket.emit('messageFromClient', userMessage.value);
+            let message = userMessage.value;
+
+            chatBoard.innerHTML += '<p>' + message + '</p>';
+
+            socket.emit('messageFromClient', message);
+
+            userMessage.value = '';
+
+            
+
+
         }
 
         //  Listen to messages from server
-        socket.on('messageFromServer', dataFromServer => {
-            console.log( dataFromServer );
+        socket.on('messageFromServer', message => {
+            
+
+            chatBoard.innerHTML += '<p>' + message + '</p>';
+
         })
 
     </script>
